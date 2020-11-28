@@ -1,0 +1,52 @@
+    func language(key : String) -> String? {
+//        return "abc"
+        var final = ""
+        let current = Locale.preferredLanguages[0]
+        if current.contains("en") {
+            let path = Bundle.main.path(forResource: "en", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: "", table: nil)
+            final = str
+        }else if current.contains("id") {
+            let path = Bundle.main.path(forResource: "id", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else if current.contains("pt") {
+            let path = Bundle.main.path(forResource: "pt-PT", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else if current.contains("zh") {
+            let path = Bundle.main.path(forResource: "zh-Hans", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else if current.contains("ar") {
+            let path = Bundle.main.path(forResource: "ar", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else if current.contains("ru") {
+            let path = Bundle.main.path(forResource: "ru", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else if current.contains("tr") {
+            let path = Bundle.main.path(forResource: "tr", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else if current.contains("es") {
+            let path = Bundle.main.path(forResource: "es", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }else {
+            let path = Bundle.main.path(forResource: "en", ofType: "lproj")
+            let bundal = Bundle.init(path: path!)
+            let str = bundal!.localizedString(forKey: key, value: nil, table: nil)
+            final = str
+        }
+        return final
+    }
