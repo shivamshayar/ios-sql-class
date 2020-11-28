@@ -1,0 +1,63 @@
+    // insert update delete
+    
+    func dml(query:String) -> Bool {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let fullpath = path[0]
+        let finalpath = fullpath.appending("/databasename.db")
+        print(finalpath)
+        
+        var op : OpaquePointer? = nil  //datebased path
+        if sqlite3_open(finalpath, &op) == SQLITE_OK {
+            var stmt : OpaquePointer? = nil; //query
+            if sqlite3_prepare_v2(op, query, -1, &stmt, nil) == SQLITE_OK {
+                sqlite3_step(stmt)
+                return true
+            }
+            sqlite3_finalize(stmt)
+            sqlite3_close(op)
+        }
+        return false
+    }
+    
+    // select
+    
+        func gethistory(query:String) -> [Any] {
+        var arr:[Any] = []
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let fullpath = path[0]
+        let finalpath = fullpath.appending("/calculator.db")
+        var op : OpaquePointer? = nil
+        
+        if sqlite3_open(finalpath, &op) == SQLITE_OK {
+            var stmt : OpaquePointer? = nil
+            if sqlite3_prepare_v2(op, query, -1, &stmt, nil) == SQLITE_OK {
+                while sqlite3_step(stmt) == SQLITE_ROW {
+                    var temp :[String] = []
+                    let id = String(cString: sqlite3_column_text(stmt, 0))
+                    let name = String(cString: sqlite3_column_text(stmt, 1))
+                    let url = String(cString: sqlite3_column_text(stmt, 2))
+                    //                    let profilepicurl = String(cString: sqlite3_column_text(stmt, 3));
+                    //                    let imageurl = String(cString: sqlite3_column_text(stmt, 4));
+                    //                    let thumburl = String(cString: sqlite3_column_text(stmt, 5));
+                    //                    let videourl = String(cString: sqlite3_column_text(stmt, 6));
+                    //                    let isvideo = String(cString: sqlite3_column_text(stmt, 7));
+                    //                    let file = String(cString: sqlite3_column_text(stmt, 8));
+                    //                    let instalink = String(cString: sqlite3_column_text(stmt, 9));
+                    temp.append(id)
+                    temp.append(name)
+                    temp.append(url)
+                    //                    temp.append(profilepicurl);
+                    //                    temp.append(imageurl);
+                    //                    temp.append(thumburl);
+                    //                    temp.append(videourl);
+                    //                    temp.append(isvideo);
+                    //                    temp.append(file);
+                    //                    temp.append(instalink);
+                    arr.append(temp)
+                }
+            }
+            sqlite3_finalize(stmt)
+            sqlite3_close(op)
+        }
+        return arr
+    }
